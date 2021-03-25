@@ -2,10 +2,13 @@ import {
   ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
+
 import { EntityRepository, Repository } from 'typeorm';
-import { AuthCredentialsDTO } from './dto/auth-credentials.dto';
+import { RegisterDTO } from './dto/register.dto';
 import { User } from './user.entity';
+import * as gravatar from 'gravatar';
 import * as bcrypt from 'bcrypt';
+import { LoginDTO } from './dto/login.dto';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -13,10 +16,8 @@ export class UserRepository extends Repository<User> {
     return await bcrypt.hash(password, salt);
   }
 
-  async validateUserPassword(
-    authCredentialsDto: AuthCredentialsDTO,
-  ): Promise<string> {
-    const { username, password } = authCredentialsDto;
+  async validateUserPassword(loginDTO: LoginDTO): Promise<string> {
+    const { username, password } = loginDTO;
 
     const user = await this.findOne({ username });
     if (user && (await user.validatePassword(password))) {
@@ -25,12 +26,19 @@ export class UserRepository extends Repository<User> {
       return null;
     }
   }
-  async signUp(authCredentialsDto: AuthCredentialsDTO): Promise<void> {
-    const { username, password } = authCredentialsDto;
+  async signUp(registerDTO: RegisterDTO): Promise<void> {
+    const { username, password, email } = registerDTO;
 
     const user = new User();
-
+    const avatar = gravatar.url(email, {
+      s: '200', // Size
+      r: 'pg', // Rating
+      d: 'mm', // Default
+      protocol: 'https',
+    });
+    user.avatar = avatar;
     user.username = username;
+    user.email = email;
     user.salt = await bcrypt.genSalt();
     user.password = await this.hashPassword(password, user.salt);
 

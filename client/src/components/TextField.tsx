@@ -19,7 +19,7 @@ export const FormikTextField: React.FC<TextFieldProps> = ({
   const errorText = meta.error && meta.touched ? meta.error : "";
   return (
     <TextField
-      variant="outlined"
+      // variant="outlined"
       margin="normal"
       multiline={multiline}
       size={size}

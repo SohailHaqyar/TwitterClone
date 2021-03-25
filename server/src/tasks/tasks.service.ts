@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../auth/user.entity';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { GetTasksFilterDTO } from './dto/get-tasks-filter.dto';
+import { UpdateTaskDTO } from './dto/update-task.dto';
 import { TaskStatus } from './task-status.enum';
 import { Task } from './task.entity';
 import { TaskRepository } from './task.repository';
@@ -46,5 +47,9 @@ export class TasksService {
     task.status = status;
     await task.save();
     return task;
+  }
+
+  async updateTask(id: number, updateTaskDto: UpdateTaskDTO) {
+    await this.taskRepository.update(id, updateTaskDto);
   }
 }

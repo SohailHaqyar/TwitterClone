@@ -1,14 +1,14 @@
-import { createStyles, makeStyles } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
 
-export default makeStyles(
+export default makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: "flex",
-      background: "#fff",
       justifyContent: "center",
       height: "100vh",
       width: "100%",
       padding: 24,
+      background: "#eef2f7",
     },
 
     wrapper: {
@@ -36,9 +36,13 @@ export default makeStyles(
     todoIcon: {
       display: "flex",
       alignItems: "center",
+      width: "100%",
+      "& .Mui-focused": {
+        borderBottom: `1.5px solid ${theme.palette.primary.main}`,
+      },
     },
     todo: {
-      borderRadius: 7,
+      borderRadius: 35,
       background: "#fff",
       width: "75%",
       margin: 10,
@@ -46,22 +50,21 @@ export default makeStyles(
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      "& span": {
+      "& input": {
         marginLeft: 10,
-      },
-
-      border: "1px solid #ddd",
-      transition: "transform 0.2s ease-in-out",
-      "&:hover": {
-        transform: "scale(1.05)",
-        cursor: "pointer",
       },
     },
 
     trashIcon: {
+      transition: "all 0.2s ease-in-out",
       "&:hover": {
         color: "crimson",
+        cursor: "pointer",
       },
+    },
+
+    todoInput: {
+      width: "100%",
     },
   })
 );

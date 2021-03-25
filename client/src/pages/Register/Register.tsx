@@ -13,11 +13,13 @@ const API_URI = `${process.env.REACT_APP_API_URI}/auth/signup`;
 const RegisterSchema = yup.object({}).shape({
   password: yup.string().min(8).required(),
   username: yup.string().min(3).max(30).required(),
+  email: yup.string().email().required(),
 });
 
 interface SubmitValues {
   username: string;
   password: string;
+  email: string;
 }
 
 export const Register = () => {
@@ -35,15 +37,16 @@ export const Register = () => {
         <h1 className={styles.title}>Register to our services </h1>
         <Formik
           validationSchema={RegisterSchema}
-          initialValues={{ username: "", password: "" }}
+          initialValues={{ username: "", password: "", email: "" }}
           onSubmit={async (
             values: SubmitValues,
             formikHelpers: FormikHelpers<SubmitValues>
           ) => {
-            const { username, password } = values;
+            const { username, password, email } = values;
             const request = await axios.post(API_URI as string, {
               username,
               password,
+              email,
             });
 
             if (request.status === 201) {
@@ -54,6 +57,7 @@ export const Register = () => {
           {(props) => (
             <Form className={styles.form}>
               <TextField label="User Name" name="username" />
+              <TextField label="Email" name="email" />
               <TextField type="password" label="Password" name="password" />
               <Button
                 style={{ marginTop: "18px" }}

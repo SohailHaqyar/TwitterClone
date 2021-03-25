@@ -26,6 +26,10 @@ const signedIn = () => (
     <Link to="/">
       <Button color="inherit">Home</Button>
     </Link>
+
+    <Link to="/posts">
+      <Button color="inherit">Posts</Button>
+    </Link>
     <Link to="/todos">
       <Button color="inherit">Todos</Button>
     </Link>
