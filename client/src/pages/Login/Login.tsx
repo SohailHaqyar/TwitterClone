@@ -38,23 +38,30 @@ export const Login = () => {
             formikHelpers: FormikHelpers<SubmitValues>
           ) => {
             const { username, password } = values;
-            const request = await axios.post(API_URI as string, {
-              username,
-              password,
-            });
-
-            localStorage.setItem(
-              "userAccessToken",
-              JSON.stringify(request.data.accessToken)
-            );
-            onLogin(request.data.accessToken);
-            history.push("/");
+            try {
+              const request = await axios.post(API_URI as string, {
+                username,
+                password,
+              });
+              localStorage.setItem(
+                "userAccessToken",
+                JSON.stringify(request.data.accessToken)
+              );
+              onLogin(request.data.accessToken);
+              history.push("/");
+            } catch (e) {
+              alert(e.message);
+            }
           }}
         >
           {(props) => (
             <Form className={styles.form}>
               <TextField name="username" label="Username" />
-              <TextField name="password" type="password" label="Password" />
+              <TextField
+                name="password"
+                type="password"
+                label="Password"
+              />
               <Button
                 style={{ marginTop: "18px" }}
                 fullWidth

@@ -30,9 +30,6 @@ const signedIn = () => (
     <Link to="/posts">
       <Button color="inherit">Posts</Button>
     </Link>
-    <Link to="/todos">
-      <Button color="inherit">Todos</Button>
-    </Link>
   </React.Fragment>
 );
 

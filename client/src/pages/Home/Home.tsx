@@ -28,12 +28,12 @@ export const Home = () => {
   };
   return (
     <div style={{ padding: 28 }}>
-      <h1>Welcom back, {user?.username}</h1>
-      <p>Email: {user?.email}</p>
       <img
         src={user?.avatar}
         style={{ borderRadius: "50%", display: "block" }}
       />
+      <p>Welcom back, {user?.username}</p>
+      <p>Email: {user?.email}</p>
       <Button
         color="secondary"
         onClick={() => onLogout()}

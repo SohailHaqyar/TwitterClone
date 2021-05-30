@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  twitter-clone:
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=root
+      - POSTGRES_DB=db
+    image: postgres
+    ports:
+      - "5432:5432"

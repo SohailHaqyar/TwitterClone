@@ -20,7 +20,7 @@ export class PostEntity extends BaseEntity {
   @Column()
   body: string;
 
-  @ManyToOne((type) => User, (user) => user.task, { eager: true })
+  @ManyToOne((type) => User, (user) => user.post, { eager: true })
   user: User;
 
   @CreateDateColumn()

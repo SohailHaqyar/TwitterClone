@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { Login, Home, Register, TodoList, PostFeed } from "./pages";
+import { Login, Home, Register,  PostFeed } from "./pages";
 import theme from "./theme";
 import { Navbar, PrivateRoute } from "./components";
 import AuthProvider from "./contexts/AuthContext";
@@ -15,7 +15,6 @@ const App: React.FC = () => {
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
           <PrivateRoute path="/" exact component={Home} />
-          <PrivateRoute path="/todos" exact component={TodoList} />
           <PrivateRoute path="/posts" exact component={PostFeed} />
         </Switch>
       </AuthProvider>

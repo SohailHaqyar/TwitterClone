@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
-import { Task } from '../tasks/task.entity';
+import { PostEntity } from 'src/post/entities/post.entity';
 @Entity()
 @Unique(['username', 'email'])
 export class User extends BaseEntity {
@@ -27,8 +27,8 @@ export class User extends BaseEntity {
   @Column()
   salt: string;
 
-  @OneToMany((type) => Task, (task) => task.user, { eager: false })
-  task: Task[];
+  @OneToMany((type) => PostEntity, (post) => post.user, { eager: false })
+  post: PostEntity[];
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);
     return hash === this.password;
